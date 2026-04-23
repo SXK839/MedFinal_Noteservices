@@ -2,8 +2,9 @@ server:
   port: 8083
 
 spring:
-  mongodb:
-    uri: mongodb://localhost:27017/physician_notes_db
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/physician_notes_db
 
 jwt:
   secret: diabetes-secret-key-32-bytes-long!
