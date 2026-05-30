@@ -1,10 +1,30 @@
 server:
   port: 8083
+  tomcat:
+    threads:
+      max: 40
+      min-spare: 8
 
 spring:
+  main:
+    lazy-initialization: true   # ✅ Reduces startup memory & CPU
+
   data:
     mongodb:
-      uri: mongodb://mongo:27017/physician_notes_db
+      uri: mongodb://mongo:27017/physician_notes_db?maxPoolSize=5&minPoolSize=2&maxIdleTimeMS=30000
+      auto-index-creation: false   # ✅ Avoids heavy index creation at startup
+
+logging:
+  level:
+    root: WARN                  # ✅ Reduces log overhead
+    org.springframework: WARN
+    org.mongodb.driver: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info    # ✅ Lightweight monitoring
 
 jwt:
   secret: diabetes-secret-key-32-bytes-long!
